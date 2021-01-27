@@ -17,11 +17,6 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json())
 app.options('/api/', cors(customCors))
 
-// Serve React
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  });
-
 // GET JSON by ID
 app.get('/api/:id', cors(), (req, res) => {
     knex('jsons').select('json').where({ 'id': req.params.id }).then(results => {
@@ -31,6 +26,12 @@ app.get('/api/:id', cors(), (req, res) => {
         return res.status(400).send(`Unable to find JSON of ID ${req.params.id}`)
     })
 })
+
+// Serve React
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+
 
 // POST new JSON
 app.post('/api/', cors(customCors), (req, res) => {
