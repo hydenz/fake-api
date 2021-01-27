@@ -51,7 +51,7 @@ const job = new CronJob('0,30 * * * *', function () {
         .del().then(() => knex.raw("UPDATE sqlite_sequence SET seq=(SELECT MAX(id) FROM jsons) WHERE name='jsons'"))
 }, null, true);
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
     console.log(`Fake-API listening at http://localhost:${port}`)
 })
 
