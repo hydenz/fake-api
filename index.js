@@ -46,12 +46,13 @@ app.post('/api/', cors(customCors), (req, res) => {
     })
 })
 
-
+/*
+Only for Development (not useful on Heroku Deploy)
 const job = new CronJob('0,30 * * * *', function () {
     knex('jsons').whereRaw('created_at <= (SELECT datetime("now", "-1 day"))')
         .del().then(() => knex.raw("UPDATE sqlite_sequence SET seq=(SELECT MAX(id) FROM jsons) WHERE name='jsons'"))
 }, null, true);
-
+*/
 app.listen(process.env.PORT || port, () => {
     console.log(`Fake-API is online!`)
 })
