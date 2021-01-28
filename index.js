@@ -12,10 +12,12 @@ const knex = require('knex')({
 });
 const app = express()
 const port = 3001
-const customCors = { origin: "http://localhost:3000" }
+const customCors = { origin: "https://hydenz-fake-api.herokuapp.com/" }
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json())
 app.options('/api/', cors(customCors))
+
+
 
 // GET JSON by ID
 app.get('/api/:id', cors(), (req, res) => {
@@ -31,7 +33,6 @@ app.get('/api/:id', cors(), (req, res) => {
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
-
 
 // POST new JSON
 app.post('/api/', cors(customCors), (req, res) => {
@@ -52,6 +53,6 @@ const job = new CronJob('0,30 * * * *', function () {
 }, null, true);
 
 app.listen(process.env.PORT || port, () => {
-    console.log(`Fake-API listening at http://localhost:${port}`)
+    console.log(`Fake-API is online!`)
 })
 
