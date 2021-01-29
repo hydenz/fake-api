@@ -10,7 +10,6 @@ const knex = require('knex')({
 const app = express()
 const port = 3001
 const customCors = { origin: "http://localhost:3000" }
-app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json())
 app.options('/api/', cors(customCors))
 
