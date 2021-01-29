@@ -4,11 +4,13 @@ const cors = require('cors')
 const path = require('path')
 const CronJob = require('cron').CronJob;
 const knex = require('knex')({
-    client: 'sqlite3',
-    connection: {
-        filename: path.join(__dirname, "db", "db.sqlite3")
+    client: 'pg',
+    connection: process.env.DB_URL || {
+        host: "localhost",
+        user: "postgres",
+        password: "postgres",
+        database: "fakeapi"
     },
-    useNullAsDefault: true
 });
 const app = express()
 const port = 3001
@@ -32,12 +34,12 @@ app.get('/api/:id', cors(), (req, res) => {
 // Serve React
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  });
+});
 
 // POST new JSON
 app.post('/api/', cors(customCors), (req, res) => {
     let json = JSON.stringify(req.body)
-    knex('jsons').insert({ json }).then(value => {
+    knex('jsons').insert({ json }, "id").then(value => {
         let id = value[0]
         return res.status(200).send({
             id,
@@ -46,13 +48,19 @@ app.post('/api/', cors(customCors), (req, res) => {
     })
 })
 
-/*
-Only for Development (not useful on Heroku Deploy)
+
 const job = new CronJob('0,30 * * * *', function () {
-    knex('jsons').whereRaw('created_at <= (SELECT datetime("now", "-1 day"))')
-        .del().then(() => knex.raw("UPDATE sqlite_sequence SET seq=(SELECT MAX(id) FROM jsons) WHERE name='jsons'"))
+
+    // Deleting rows older than 1 day then reseting auto increment to max ID+1
+    knex('jsons').whereRaw("created_at <= NOW() - INTERVAL '1 day'")
+        .del().then(() => knex.raw(`
+            BEGIN;
+            LOCK TABLE jsons IN EXCLUSIVE MODE;
+            SELECT setval('jsons_id_seq', COALESCE((SELECT MAX(id)+1 FROM jsons), 1), false);
+            COMMIT;`))
+
 }, null, true);
-*/
+
 app.listen(process.env.PORT || port, () => {
     console.log(`Fake-API is online!`)
 })

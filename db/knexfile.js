@@ -3,27 +3,45 @@
 module.exports = {
 
   development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './db.sqlite3'
+    client: 'pg',
+    connection: process.env.DB_URL || {
+      host: "localhost",
+      user: "postgres",
+      password: "postgres",
+      database: "fakeapi"
     },
-    useNullAsDefault: true
+    migrations: {
+      directory: './migrations',
+    },
+    seeds: { directory: './seeds' },
   },
 
   staging: {
-    client: 'sqlite3',
-    connection: {
-      filename: './db.sqlite3'
+    client: 'pg',
+    connection: process.env.DB_URL || {
+      host: "localhost",
+      user: "postgres",
+      password: "postgres",
+      database: "fakeapi"
     },
-    useNullAsDefault: true
+    migrations: {
+      directory: './migrations',
+    },
+    seeds: { directory: './seeds' },
   },
 
   production: {
-    client: 'sqlite3',
-    connection: {
-      filename: './db.sqlite3'
+    client: 'pg',
+    connection: process.env.DB_URL || {
+      host: "localhost",
+      user: "postgres",
+      password: "postgres",
+      database: "fakeapi"
     },
-    useNullAsDefault: true
-  }
+    migrations: {
+      directory: './migrations',
+    },
+    seeds: { directory: './seeds' },
+  },
 
 };
