@@ -5,7 +5,7 @@ const path = require('path')
 const CronJob = require('cron').CronJob;
 const knex = require('knex')({
     client: 'pg',
-    connection: process.env.DB_URL || {
+    connection: process.env.DATABASE_URL || {
         host: "localhost",
         user: "postgres",
         password: "postgres",
