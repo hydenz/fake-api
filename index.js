@@ -5,15 +5,9 @@ const path = require('path')
 const CronJob = require('cron').CronJob;
 const knex = require('knex')({
     client: 'pg',
-    connection: process.env.DATABASE_URL || {
-        host: "localhost",
-        user: "postgres",
-        password: "postgres",
-        database: "fakeapi"
-    },
+    connection: process.env.DATABASE_URL
 });
 const app = express()
-const port = 3001
 const customCors = { origin: "https://hydenz-fake-api.herokuapp.com/" }
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json())
@@ -43,7 +37,7 @@ app.post('/api/', cors(customCors), (req, res) => {
         let id = value[0]
         return res.status(200).send({
             id,
-            msg: `Sucess! Your JSON is available at /api/${id}`
+            msg: `Sucess! Your JSON is available at /api/${id} for the next 24 hours`
         })
     })
 })
@@ -61,7 +55,7 @@ const job = new CronJob('0,30 * * * *', function () {
 
 }, null, true);
 
-app.listen(process.env.PORT || port, () => {
+app.listen(process.env.PORT, () => {
     console.log(`Fake-API is online!`)
 })
 
