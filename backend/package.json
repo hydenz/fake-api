@@ -1,0 +1,24 @@
+{
+  "name": "fake-api-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "cron": "^1.8.2",
+    "express": "^4.17.1",
+    "knex": "^0.21.16",
+    "npm": "^6.14.11",
+    "pg": "^8.5.1"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "serve": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
