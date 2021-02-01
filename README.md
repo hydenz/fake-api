@@ -9,12 +9,12 @@ The [prod branch](https://github.com/hydenz/fake-api/tree/prod) is deployed on [
 
 #### Used technologies
 
--- [ReactJS](https://reactjs.org/)
--- [Express](https://expressjs.com/)
--- [Axios](https://github.com/axios/axios)
--- [Knex](http://knexjs.org/)
--- [CRON](https://www.npmjs.com/package/cron)
--- [PostgreSQL](https://www.postgresql.org/)
+- [ReactJS](https://reactjs.org/)
+- [Express](https://expressjs.com/)
+- [Axios](https://github.com/axios/axios)
+- [Knex](http://knexjs.org/)
+- [CRON](https://www.npmjs.com/package/cron)
+- [PostgreSQL](https://www.postgresql.org/)
 
 #### Setup
 
