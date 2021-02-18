@@ -32,8 +32,8 @@ app.get('/*', (req, res) => {
 
 // POST new JSON
 app.post('/api/', cors(customCors), (req, res) => {
-    const contentType = req.header("content-type");
-    if (contentType !== "application/json") return res.send({msg: "Apenas o formato JSON é suportado}")
+    const contentType = req.header("content-type").split(";")[0]
+    if (contentType !== "application/json") return res.json({msg: "Only JSON format is available"})
     let json = JSON.stringify(req.body)
     knex('jsons').insert({ json }, "id").then(value => {
         let id = value[0]
