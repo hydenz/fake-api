@@ -25,6 +25,8 @@ app.get('/api/:id', cors(), (req, res) => {
 
 // POST new JSON
 app.post('/api/', cors(customCors), (req, res) => {
+    const contentType = response.headers.get("content-type");
+    if (contentType !== "application/json") return res.send({msg: "Apenas o formato JSON é suportado}")
     let json = JSON.stringify(req.body)
     knex('jsons').insert({ json }, "id").then(value => {
         let id = value[0]
