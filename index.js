@@ -35,7 +35,7 @@ app.get('/api/:id', (req, res) => {
 app.post('/api', (req, res) => {
   const contentType = req.header('content-type').split(';')[0];
   if (contentType !== 'application/json')
-    return res.json({ response: 'Only JSON format is available' });
+    return res.json({ msg: 'Only JSON format is available' });
   let json = JSON.stringify(req.body);
   knex('jsons')
     .insert({ json }, 'id')
