@@ -13,6 +13,8 @@
   },
   "scripts": {
     "start": "node index.js",
+    "migrate": "cd db && knex migrate:latest",
+    "seed": "cd db && knex seed:run",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

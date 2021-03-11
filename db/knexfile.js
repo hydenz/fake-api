@@ -1,47 +1,8 @@
-// Update with your config settings.
-
 module.exports = {
-
-  development: {
-    client: 'pg',
-    connection: process.env.DATABASE_URL || {
-      host: "localhost",
-      user: "postgres",
-      password: "postgres",
-      database: "fakeapi"
-    },
-    migrations: {
-      directory: './migrations',
-    },
-    seeds: { directory: './seeds' },
+  client: 'pg',
+  connection: process.env.DATABASE_URL,
+  migrations: {
+    directory: './migrations',
   },
-
-  staging: {
-    client: 'pg',
-    connection: process.env.DATABASE_URL || {
-      host: "localhost",
-      user: "postgres",
-      password: "postgres",
-      database: "fakeapi"
-    },
-    migrations: {
-      directory: './migrations',
-    },
-    seeds: { directory: './seeds' },
-  },
-
-  production: {
-    client: 'pg',
-    connection: process.env.DATABASE_URL || {
-      host: "localhost",
-      user: "postgres",
-      password: "postgres",
-      database: "fakeapi"
-    },
-    migrations: {
-      directory: './migrations',
-    },
-    seeds: { directory: './seeds' },
-  },
-
+  seeds: { directory: './seeds' },
 };
