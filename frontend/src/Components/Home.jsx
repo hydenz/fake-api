@@ -25,12 +25,9 @@ const Home = () => {
     axios
       .post('/api', json)
       .then((res) => {
-        setmodalOpts({ show: true, msg: res.data.msg });
-        let endpoint = window.location.href.replace(
-          'home',
-          `api/${res.data.id}`
-        );
-        localStorage.setItem('endpoint', endpoint);
+        const { msg, id } = res.data;
+        setmodalOpts({ show: true, msg });
+        localStorage.setItem('id', id);
       })
       .catch(() =>
         setmodalOpts({

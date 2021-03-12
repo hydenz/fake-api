@@ -1,26 +1,22 @@
-import Header from "./Components/Header"
-import Home from "./Components/Home"
-import Api from "./Components/Api"
-import {
-  Switch,
-  Route,
-  Redirect
-} from "react-router-dom"
+import Header from './Components/Header';
+import Home from './Components/Home';
+import Api from './Components/Api';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <Header />
       <Switch>
-        <Route path="/home">
+        <Route path='/home' exact>
           <Home />
         </Route>
-        <Route path="/api">
+        <Route path='/api' exact strict>
           <Api />
         </Route>
-        <Route path="/">
-          <Redirect to="/home" />
-        </Route>
+        <Redirect from='/*' to='/home' />
+        <Redirect from='/home/*' to='/home' />
+        <Redirect from='/api/*' to='/api' />
       </Switch>
     </div>
   );
