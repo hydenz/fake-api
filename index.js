@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -8,6 +9,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
 app.use(cors());
+const port = process.env.PORT || 3001
 
 // GET JSON by ID
 app.get('/api/:id', (req, res) => {
@@ -72,6 +74,6 @@ const job = new CronJob(
   true
 );
 
-app.listen(process.env.PORT, () => {
-  console.log(`Fake-API is online on port ${process.env.PORT}!`);
+app.listen(port, () => {
+  console.log(`Fake-API is online on port ${port}!`);
 });
