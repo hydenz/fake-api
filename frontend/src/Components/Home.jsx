@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Spinner from 'react-bootstrap/Spinner';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 
@@ -16,14 +17,19 @@ const Home = () => {
     disabledBtn: true,
   });
   const [modalOpts, setmodalOpts] = useState({ show: false, msg: '' });
+  const [btnLoading, setbtnLoading] = useState(false);
   const postJson = (e) => {
     e.preventDefault();
+    setbtnLoading(true);
     let json = JSON.parse(userInput);
     axios
       .post('/api', json)
       .then((res) => {
         setmodalOpts({ show: true, msg: res.data.msg });
-        let endpoint = res.config.url + res.data.id;
+        let endpoint = window.location.href.replace(
+          'home',
+          `api/${res.data.id}`
+        );
         localStorage.setItem('endpoint', endpoint);
       })
       .catch(() =>
@@ -32,7 +38,8 @@ const Home = () => {
           msg:
             'There was an error processing your request, please try again later',
         })
-      );
+      )
+      .then(() => setbtnLoading(false));
   };
   useEffect(() => {
     if (userInput) {
@@ -87,7 +94,17 @@ const Home = () => {
                         disabled={validJson.disabledBtn}
                         onClick={postJson}
                       >
-                        Submit
+                        {btnLoading ? (
+                          <Spinner
+                            as='span'
+                            animation='border'
+                            size='sm'
+                            role='status'
+                            aria-hidden='true'
+                          />
+                        ) : (
+                          'Submit'
+                        )}
                       </Button>
                     </Col>
                   </Row>

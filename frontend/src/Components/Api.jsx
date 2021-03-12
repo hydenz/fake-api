@@ -5,11 +5,13 @@ import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Spinner from 'react-bootstrap/Spinner';
 import axios from 'axios';
 
 const Api = () => {
   const [endPoint, setendPoint] = useState('');
   const [output, setOutput] = useState('');
+  const [btnLoading, setbtnLoading] = useState(false);
   useEffect(() => {
     let endpoint = localStorage.getItem('endpoint');
     endpoint && setendPoint(endpoint);
@@ -17,6 +19,7 @@ const Api = () => {
 
   const getJson = (e) => {
     e.preventDefault();
+    setbtnLoading(true);
     axios
       .get(endPoint)
       .then((resp) => {
@@ -29,7 +32,8 @@ const Api = () => {
         } else if (err.request) {
           setOutput('Server out of reach, please try again later');
         }
-      });
+      })
+      .then(() => setbtnLoading(false));
   };
   return (
     <Container>
@@ -53,7 +57,17 @@ const Api = () => {
                   </Col>
                   <Col xs='auto'>
                     <Button variant='success' size='lg' onClick={getJson}>
-                      GET
+                      {btnLoading ? (
+                        <Spinner
+                          as='span'
+                          animation='border'
+                          size='sm'
+                          role='status'
+                          aria-hidden='true'
+                        />
+                      ) : (
+                        'GET'
+                      )}
                     </Button>
                   </Col>
                 </Form.Row>
