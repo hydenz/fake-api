@@ -5,7 +5,7 @@ The user enters a JSON that the application will hold on a endpoint for the next
 
 ### 🚀 Deploy
 
-The [prod branch](https://github.com/hydenz/fake-api/tree/prod) is deployed on [Heroku]( https://hydenz-fake-api.herokuapp.com/)
+The [prod branch](https://github.com/hydenz/fake-api/tree/prod) is deployed on [AWS]( http://ec2-15-228-34-22.sa-east-1.compute.amazonaws.com:3000/home)
 
 #### Used technologies
 
